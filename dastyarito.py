@@ -10,8 +10,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import requests
 from bs4 import BeautifulSoup
+import sys
 
-dollar_var = ""
+dollar_strval = "برای نمایش قسمت روی بروزرسانی کلیک کنید"
 
 
 class Ui_MainWindow(object):
@@ -83,14 +84,16 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
         
-    def dollar() :
+    def dollar(self, MainWindow) :
+        _translate = QtCore.QCoreApplication.translate
         url = 'http://www.tgju.org/dollar-chart'
         session = requests.session()
         site = session.get(url)
         soup = BeautifulSoup(site.text, 'html.parser')
         for sitedata in soup.find_all('td', class_='nf') :
-            return sitedata.string
-            update()
+            dollar_strval = sitedata.string
+            self.label_4.setText(_translate("MainWindow", dollar_strval))
+            break
                 
         
             
