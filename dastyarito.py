@@ -11,6 +11,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import requests
 from bs4 import BeautifulSoup
 import sys
+from PyQt5.QtGui import QIcon
+import os
 
 dollar_strval = "برای نمایش قسمت روی بروزرسانی کلیک کنید"
 
@@ -114,12 +116,25 @@ class Ui_MainWindow(object):
         self.label_4.setText(_translate("MainWindow", dollar_strval))
         self.pushButton.setText(_translate("MainWindow", "به روز رسانی"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "قیمت ارز"))
+        
+        
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
             
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+    app_icon = QIcon(resource_path("icon.png"))
     MainWindow = QtWidgets.QMainWindow()
+    MainWindow.setWindowIcon(app_icon)
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
